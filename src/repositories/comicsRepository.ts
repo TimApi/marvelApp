@@ -1,9 +1,9 @@
-import axios from "axios"
+import axios, { AxiosResponse } from "axios"
 import md5 from 'js-md5';
-import type { comicsInterface } from "../interfaces/comicsInterface.ts";
-import type { seriesInterface } from "../interfaces/seriesInterface.ts"
-import type { storyInterface } from  "../interfaces/storyInterface.ts"
-import type { characterInterface } from "../interfaces/characterInterface.ts"
+import  { comicsInterface } from "../interfaces/comicsInterface";
+import  { seriesInterface } from "../interfaces/seriesInterface"
+import  { storyInterface } from "../interfaces/storysInterface"
+import  { characterInterface } from "../interfaces/charactersInterface"
 
 
 const publicKey = "006af7c5817f2c8a183b467d79c7cd4d"
@@ -20,26 +20,25 @@ const intance = axios.create({
 
 
 export class comicsRepository  {
-    getComics(comicsAmout?: number) {
+    getComics(comicsAmout?: number): Promise<AxiosResponse<comicsInterface>> {
         const hash = md5.create()
         hash.update(ts + privateKey + publicKey)
-        return intance.get<comicsInterface[] | null>(`/v1/public/comics?ts=${ts}&apikey=${publicKey}&hash=${hash.hex()}&limit=${comicsAmout}`)
-        console.log(getComics)
+        return intance.get(`/v1/public/comics?ts=${ts}&apikey=${publicKey}&hash=${hash.hex()}&limit=${comicsAmout}`)
     }
-    getSeries() {
+    getSeries(): Promise<AxiosResponse<seriesInterface>> {
         const hash = md5.create()
         hash.update(ts + privateKey + publicKey)
-        return intance.get<seriesInterface[] | null>(`/v1/public/series?ts=${ts}&apikey=${publicKey}&hash=${hash.hex()}&limit=5`)
+        return intance.get(`/v1/public/series?ts=${ts}&apikey=${publicKey}&hash=${hash.hex()}&limit=5`)
     }
-    getStories() {
+    getStories(): Promise<AxiosResponse<storyInterface>> {
         const hash = md5.create()
         hash.update(ts + privateKey + publicKey)
-        return intance.get<storyInterface[] | null>(`/v1/public/stories?ts=${ts}&apikey=${publicKey}&hash=${hash.hex()}&limit=6`)
+        return intance.get(`/v1/public/stories?ts=${ts}&apikey=${publicKey}&hash=${hash.hex()}&limit=6`)
     }
-    getCharacters() {
+    getCharacters(): Promise<AxiosResponse<characterInterface>> {
         const hash = md5.create()
         hash.update(ts + privateKey + publicKey)
-        return intance.get<characterInterface | null>(`/v1/public/characters?ts=${ts}&apikey=${publicKey}&hash=${hash.hex()}&limit=20`)
+        return intance.get(`/v1/public/characters?ts=${ts}&apikey=${publicKey}&hash=${hash.hex()}&limit=20`)
     }
 }
 

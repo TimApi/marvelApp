@@ -1,0 +1,54 @@
+<script setup lang="ts">
+import { ref } from "vue";
+
+export interface character {
+    name?: string;
+    description?: string;
+    thumbnail?: {
+        path: string;
+        extension: string;
+    };
+    comics?: {
+        available: number;
+        collectionURI: string;
+        items: [{
+            resourceURI: string;
+            name: string;
+        }]
+        returned: number;
+    }
+}
+
+const props = defineProps<character>() 
+
+const emit = defineEmits<{
+  (e: 'togglemenu', menu: boolean): void
+}>()
+
+
+</script>
+
+<template>
+    <div class="container mx-auto px-2">
+        <div class="flex flex-col md:flex-row rounded-lg md:max-h-[530px] my-6">
+          <div class="w-full  md:w-[50%] shadow-lg">
+            <div class="p-4 flex flex-col h-full">
+            <span class="font-noto-sans font-semibold text-xl mb-1">Title</span>
+            <p class="text-white font-noto-sans mb-1">{{ props.name }}</p>
+            <span class="font-noto-sans font-semibold text-xl mb-1">Description</span>
+            <p class="text-white font-noto-sans mb-1">{{ props.description }}</p>
+            <span class="font-noto-sans font-semibold text-xl mb-1">Characters available</span>
+            <p class="text-white font-noto-sans mb-1">{{ props.comics?.available }}</p>
+            <button class="bg-YellowC p-2 border-r-xl rounded-md cursor-pointer hover:shadow-lg mt-auto w-fit" @click="emit('togglemenu', false)" >Terug naar Comics</button>
+            </div>
+          </div>
+          <div class="w-full md:w-[50%]">
+            <img
+              class="w-full object-cover h-full"
+              :src="`${props.thumbnail?.path}/portrait_xlarge.jpg`"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+</template>

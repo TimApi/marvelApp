@@ -2,10 +2,11 @@
 import { ref, onMounted } from "vue";
 import Comic from "@/components/Comic.vue"
 import comicsService from "@/services/comicsService";
-import type { comicsInterface } from "../interfaces/comicsInterface";
+import { propsComic } from "@/components/Comic.vue"
+import { comicsInterface } from "../interfaces/comicsInterface";
 
-const comicsData = ref<comicsInterface>({});
-const singleComic = ref()
+const comicsData = ref<comicsInterface[]>();
+const singleComic = ref<propsComic>()
 const clicked = ref(false);
 
 onMounted(() => {
@@ -13,15 +14,20 @@ onMounted(() => {
 });
 
 const getAllComics = (comicsamout: number) => {
-  comicsService.getComics(comicsamout).then((comicsdata) => {
+  comicsService.getComics(comicsamout).then(comicsdata => {
     console.log(comicsdata);
-    comicsData.value = comicsdata.data.data.results;
+    comicsData.value = comicsdata.data.data.results
   });
 };
 
-const storeComic = (comic: {}) => {
+const storeComic = (comic: propsComic) => {
     console.log(comic)
     singleComic.value = comic
+}
+
+const checkmenu = (value: boolean) => {
+  console.log(value)
+  if(!value) { clicked.value = false}
 }
 
 </script>
@@ -40,14 +46,15 @@ const storeComic = (comic: {}) => {
       </ul>
     </div>
   </section>
-  <section v-if="clicked">
+  <section v-else>
     <Comic 
-        :title="singleComic.title"
+        @togglemenu="checkmenu"
+        :title="singleComic?.title"
         :clicked="clicked"
-        :description="singleComic.description"
-        :thumbnail="singleComic.thumbnail"
-        :characters="singleComic.characters"
-        :events="singleComic.events"
+        :description="singleComic?.description"
+        :thumbnail="singleComic?.thumbnail"
+        :characters="singleComic?.characters"
+        :events="singleComic?.events"
      />
   </section>
 </template>

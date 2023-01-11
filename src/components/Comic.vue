@@ -1,21 +1,21 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 
-interface propsComic {
-  title: string;
-  description: string | null;
-  clicked: boolean;
-  thumbnail: {
+export interface propsComic {
+  title?: string;
+  description?: string | null;
+  clicked?: boolean;
+  thumbnail?: {
     path: string;
     extension: string;
   };
-  characters: {
+  characters?: {
     available: number;
     collectionURI: string;
     items: [];
     returned: number;
   };
-  events: {
+  events?: {
         available: number;
         collectionURI: string;
         items: [];
@@ -24,6 +24,9 @@ interface propsComic {
 }
 
 const props = defineProps<propsComic>();
+const emit = defineEmits<{
+  (e: 'togglemenu', menu: boolean): void
+}>()
 </script>
 
 <template>
@@ -39,7 +42,7 @@ const props = defineProps<propsComic>();
         <p class="text-black font-noto-sans mb-1">{{ props.characters.available }}</p>
         <span class="font-noto-sans font-semibold text-xl mb-1">Events available</span>
         <p class="text-black font-noto-sans mb-1">{{ props.events.available }}</p>
-        <button class="bg-YellowC p-2 border-r-xl rounded-md cursor-pointer hover:shadow-lg mt-auto w-fit" @click="props.clicked ? true : false" >Terug naar Comics</button>
+        <button class="bg-YellowC p-2 border-r-xl rounded-md cursor-pointer hover:shadow-lg mt-auto w-fit" @click="emit('togglemenu', false)">Terug naar Comics</button>
         </div>
       </div>
       <div class="w-full md:w-[50%]">

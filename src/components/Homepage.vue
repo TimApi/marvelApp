@@ -4,11 +4,11 @@ import comicsService from "@/services/comicsService";
 import type { comicsInterface } from "../interfaces/comicsInterface";
 import type { seriesInterface } from "@/interfaces/seriesInterface";
 import type { storyInterface } from "@/interfaces/storysInterface";
-import Footer from "@/components/footer.vue";
+import Footer from "@/components/Footer.vue";
 
-const comicsData = ref<comicsInterface>({});
-const serieData = ref<seriesInterface>({});
-const storyData = ref<storyInterface>({});
+const comicsData = ref<comicsInterface[]>();
+const serieData = ref<seriesInterface[]>();
+const storyData = ref<storyInterface[]>();
 
 onMounted(() => {
   getAllComics(5);

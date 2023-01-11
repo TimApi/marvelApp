@@ -3,7 +3,7 @@ import Characters from "@/components/Characters.vue"
 </script>
 
 <template>
-  <main>
+  <main class="bg-black">
     <Characters />
   </main>
 </template>
