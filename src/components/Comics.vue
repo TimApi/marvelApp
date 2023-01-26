@@ -34,7 +34,7 @@ const checkmenu = (value: boolean) => {
 
 <template>
   <section class="bg-black py-8" v-if="!clicked">
-    <div class="container mx-auto px-2">
+    <div class="container mx-auto px-2 max-w-[1200px]">
       <ul class="flex flex-wrap">
         <li class="w-full md:w-[33.33%] mb-4 md:pr-4 cursor-pointer" v-for="(comic, index) in comicsData" :key="index">
             <img class="w-full max-h-[200px] object-cover" :src="`${comic.thumbnail.path}/portrait_xlarge.jpg`" alt="" />

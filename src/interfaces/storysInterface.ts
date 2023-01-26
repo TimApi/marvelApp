@@ -4,7 +4,7 @@ export interface storyInterface {
     description: string | null;
     resourceURI: string;
     type: string;
-    modified: date;
+    modified: Date;
     thumbnail: string | null;
     creators: {
         available: number;
@@ -31,7 +31,7 @@ export interface storyInterface {
         available: number;
         collectionURI: string;
         items: [{
-            resourceURI: sting;
+            resourceURI: string;
             name: string;
         }]
         returned: string;

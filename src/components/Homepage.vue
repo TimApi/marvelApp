@@ -5,15 +5,34 @@ import type { comicsInterface } from "../interfaces/comicsInterface";
 import type { seriesInterface } from "@/interfaces/seriesInterface";
 import type { storyInterface } from "@/interfaces/storysInterface";
 import Footer from "@/components/Footer.vue";
+import Swiper from "../components/swiper.vue"
+import gsap from "gsap";
+import SplitType from "split-type";
+
 
 const comicsData = ref<comicsInterface[]>();
 const serieData = ref<seriesInterface[]>();
 const storyData = ref<storyInterface[]>();
+const text = new SplitType('#my-text');
+const toggleAnimation = ref(false);
+
 
 onMounted(() => {
   getAllComics(5);
   getallSeries();
   getallStories();
+  gsap.to('.tranistion-img', {
+    duration: 1,
+    y: 0,
+    ease: "bounce",
+  })
+  gsap.to('.btn',
+   {
+    duration: 2,
+    delay: 1,
+    ease: 'slow',
+    autoAlpha: 1,
+  })
 });
 
 const getAllComics = (comicsamout: number) => {
@@ -23,6 +42,26 @@ const getAllComics = (comicsamout: number) => {
     console.log(comicsData.value);
   });
 };
+
+
+const hideanimation = () => {
+  gsap.to('.tranistion-img', {
+    duration: 1,
+    y: -500,
+    ease: "bounce",
+  })
+  gsap.to('.btn',
+   {
+    duration: 2,
+    ease: 'slow',
+    autoAlpha: 0,
+  })
+  gsap.to('.bg-animation', {
+    opacity: 0,
+    duration: 3,
+    display: 'none',
+  })
+}
 
 const getallSeries = () => {
   comicsService.getSeries().then((seriesdata) => {
@@ -40,11 +79,18 @@ const getallStories = () => {
 </script>
 
 <template>
+  <div :class="[{ hidden: toggleAnimation }]" class="absolute inset-0 bg-animation bg-black min-h-screen h-screen">
+    <img src="./../assets/images/Marvel_Logo.svg.png" class="w-[100%] tranistion-img z-10 h-auto max-h-[500px] object-cover p-8 translate-y-[-100%]" />
+    <h1 id="my-text" class="text-white z-10 p-8 font-noto-sans text-xl md:text-6xl text-white mb-4 font-semibold animation-text">
+      Marvel
+    </h1>
+    <button @click="hideanimation" class="bg-white btn p-2 invisible mt-4 rounded-2xl text-black cursor-pointer hover:shadow-lg m-8">Ga naar de website</button>
+  </div>
   <div
     class="bg-hero-img bg-no-repeat bg-cover h-2/4 h-[300px] md:h-[800px] mt-[-120px] pt-[300px]"
   >
     <section>
-      <div class="container mx-auto px-2">
+      <div class="container mx-auto px-2 max-w-[1200px]">
         <div class="flex justify-center items-center flex-col">
           <h1
             class="font-noto-sans text-xl md:text-6xl text-white mb-4 font-semibold"
@@ -57,20 +103,23 @@ const getallStories = () => {
             >
               Lees meer
             </button>
-            <button class="bg-DarkPurpleC p-2 border-r-xl text-white rounded-md cursor-pointer hover:shadow-lg mt-auto w-fit ml-3 font-semibold">Lees meer</button>
+            <button
+              class="bg-DarkPurpleC p-2 border-r-xl text-white rounded-md cursor-pointer hover:shadow-lg mt-auto w-fit ml-3 font-semibold"
+            >
+              Lees meer
+            </button>
           </div>
         </div>
       </div>
     </section>
     <section class="mt-32">
-      <div class="container mx-auto px-2">
+      <div class="container mx-auto px-2 max-w-[1200px]">
         <h2
           class="font-noto-sans text-5xl text-center mb-4 text-DarkPurpleC font-semibold"
         >
           Comics
         </h2>
         <ul class="flex flex-wrap justify-center">
-
           <li
             class="pb-5 pr-5 m-0"
             v-for="(comic, index) in comicsData"
@@ -88,18 +137,17 @@ const getallStories = () => {
           </li>
         </ul>
         <div class="flex justify-center">
-          <RouterLink
-              to="/comics"
-              ><button
+          <RouterLink to="/comics"
+            ><button
               class="bg-DarkPurpleC p-2 rounded-2xl text-GrayC cursor-pointer hover:shadow-lg"
             >
               Meer comics
             </button></RouterLink
-            >
+          >
         </div>
       </div>
     </section>
-    <section class="bg-knight-img min-h-[500px] bg-no-repeat bg-cover mt-10">
+    <section class="bg-knight-img min-h-[500px] bg-no-repeat bg-cover mt-10 max-w-[1200px]">
       <div class="container mx-auto px-2">
         <div class="py-10">
           <h2
@@ -133,7 +181,7 @@ const getallStories = () => {
       </div>
     </section>
     <section class="bg-black">
-      <div class="container mx-auto px-2">
+      <div class="container mx-auto px-2 max-w-[1200px]">
         <div class="py-10">
           <h2
             class="font-noto-sans text-5xl text-center mb-7 text-white font-semibold"
@@ -175,6 +223,7 @@ const getallStories = () => {
         </div>
       </div>
     </section>
+    <Swiper />
     <Footer />
   </div>
 </template>

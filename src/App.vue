@@ -14,8 +14,9 @@ const toggleMenu = () => {
 </script>
 
 <template>
+
   <header class="py-6 bg-black">
-    <div class="container mx-auto px-2">
+    <div class="container mx-auto px-2 max-w-[1200px]">
       <nav
         class="flex md:justify-between flex-col md:flex-row items-center relative"
       >

@@ -34,7 +34,7 @@ const checkmenu = (value: boolean) => {
 
 <template>
 
-  <div class="container mx-auto px-2">
+  <div class="container mx-auto px-2 max-w-[1200px]">
     <div class="py-8" v-if="!characterMenu">
       <ul class="flex flex-wrap">
         <li

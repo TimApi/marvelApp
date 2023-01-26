@@ -29,7 +29,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-    <div class="container mx-auto px-2">
+    <div class="container mx-auto px-2 max-w-[1200px]">
         <div class="flex flex-col md:flex-row rounded-lg md:max-h-[530px] my-6">
           <div class="w-full  md:w-[50%] shadow-lg">
             <div class="p-4 flex flex-col h-full">

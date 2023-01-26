@@ -2,7 +2,7 @@
 
 <template>
     <section class="bg-black mt-10">
-  <div class="container mx-auto px-2">
+  <div class="container mx-auto px-2 max-w-[1200px]">
     <div class="grid grid-cols-12 gap-3 py-8">
       <div class="col-span-12 md:col-span-3 mr-4">
         <img
